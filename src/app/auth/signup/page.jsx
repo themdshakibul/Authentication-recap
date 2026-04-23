@@ -18,8 +18,6 @@ const SignupPages = () => {
     const formData = new FormData(e.target);
     const userData = Object.fromEntries(formData.entries());
 
-    console.log(userData);
-
     const { data, error } = await authClient.signUp.email({
       name: userData.name,
       email: userData.email,
@@ -30,8 +28,11 @@ const SignupPages = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-200">
-      <Form className="flex w-96 flex-col gap-4" onSubmit={onSubmit}>
+    <div className="flex items-center justify-center h-150">
+      <Form
+        className="bg-base-200 p-10 rounded-lg shadow-sm border border-gray-300 flex w-100 flex-col gap-4"
+        onSubmit={onSubmit}
+      >
         {/* name  */}
         <TextField
           isRequired

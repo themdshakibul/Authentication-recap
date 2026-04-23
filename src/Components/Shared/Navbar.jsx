@@ -1,51 +1,121 @@
 "use client";
-import React, { useState } from "react";
-import Navbar from "./Navbar"; // Tomar file path thik kore niyo
-import { Button } from "@heroui/react";
 
-export default function App() {
-  // Login state handle korar jonno (Prokrity project-e eti Auth context theke ashbe)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+import { useState } from "react";
+import { Link, Button } from "@heroui/react";
+import { usePathname } from "next/navigation";
 
-  // Navigation items array
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-  ];
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const usePathName = usePathname();
 
   return (
-    <main>
-      <Navbar
-        brand={<p className="font-bold text-inherit">MY LOGO</p>}
-        items={navItems}
-        rightContent={
-          <div className="flex gap-3">
-            {isLoggedIn ? (
-              // User login thakle Logout button dekhabe
-              <Button
-                color="danger"
-                variant="flat"
-                onClick={() => setIsLoggedIn(false)}
+    <section>
+      <div className="bg-background/70 backdrop-blur-lg border-b border-separator">
+        <nav className="container mx-auto sticky top-0 z-40 w-full">
+          <header className=" flex h-16 items-center justify-between px-6">
+            <div className="flex items-center gap-4">
+              <button
+                className="md:hidden"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle menu"
               >
-                Log Out
-              </Button>
-            ) : (
-              // User login na thakle Login button dekhabe
-              <Button color="primary" onClick={() => setIsLoggedIn(true)}>
-                Login
-              </Button>
-            )}
-          </div>
-        }
-      />
-
-      <div className="p-10 text-center">
-        <h1 className="text-2xl font-bold">Welcome to My Website</h1>
-        <p className="mt-4">
-          Current Status: {isLoggedIn ? "Logged In ✅" : "Logged Out ❌"}
-        </p>
+                <span className="sr-only">Menu</span>
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  {isMenuOpen ? (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  )}
+                </svg>
+              </button>
+              <div>Navbar</div>
+            </div>
+            <ul className="hidden items-center gap-4 md:flex">
+              <li>
+                <Link href="/">
+                  <Button variant={usePathName === "/" ? "secondary" : ""}>
+                    Home
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link href="">
+                  <Button variant={usePathName === "" ? "secondary" : ""}>
+                    About
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link href="">
+                  <Button variant={usePathName === "" ? "secondary" : ""}>
+                    Blog
+                  </Button>
+                </Link>
+              </li>
+            </ul>
+            <div className="flex items-center justify-center gap-5">
+              <Link href="/auth/signin">
+                <Button
+                  variant={usePathName === "/auth/signin" ? "secondary" : ""}
+                >
+                  SignIn
+                </Button>
+              </Link>
+              <Link href="/auth/signup">
+                <Button
+                  variant={usePathName === "/auth/signup" ? "secondary" : ""}
+                >
+                  SignUp
+                </Button>
+              </Link>
+            </div>
+          </header>
+          {isMenuOpen && (
+            <div className="border-t border-separator md:hidden">
+              <ul className="flex flex-col gap-2 p-4">
+                <li>
+                  <Link href="/">
+                    <Button variant={usePathName === "/" ? "secondary" : ""}>
+                      Home
+                    </Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="">
+                    <Button variant={usePathName === "" ? "secondary" : ""}>
+                      About
+                    </Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="">
+                    <Button variant={usePathName === "" ? "secondary" : ""}>
+                      Blog
+                    </Button>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          )}
+        </nav>
       </div>
-    </main>
+    </section>
   );
-}
+};
+
+export default Navbar;
