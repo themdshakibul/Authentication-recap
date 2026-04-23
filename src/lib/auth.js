@@ -1,3 +1,4 @@
+// "use server";
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
@@ -5,7 +6,7 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 // ex:  mongobd:https://
 // env name add width process.env
 const client = new MongoClient(process.env.MONGO_URI);
-const db = client.db();
+const db = client.db("better_auth");
 
 export const auth = betterAuth({
   // email and password
@@ -14,7 +15,6 @@ export const auth = betterAuth({
   },
 
   database: mongodbAdapter(db, {
-    // Optional: if you don't provide a client, database transactions won't be enabled.
     client,
   }),
 });
