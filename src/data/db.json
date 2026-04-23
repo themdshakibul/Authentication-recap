@@ -1,0 +1,44 @@
+{
+  "foods": [
+    {
+      "id": 1,
+      "name": "Burger",
+      "price": 120,
+      "category": "Fast Food",
+      "description": "Delicious beef burger with cheese",
+      "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500"
+    },
+    {
+      "id": 2,
+      "name": "Pizza",
+      "price": 350,
+      "category": "Fast Food",
+      "description": "Cheesy pizza with toppings",
+      "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=500"
+    },
+    {
+      "id": 3,
+      "name": "Fried Rice",
+      "price": 200,
+      "category": "Chinese",
+      "description": "Fried rice with vegetables and egg",
+      "image": "https://images.unsplash.com/photo-1512058560566-42724afbc2db?q=80&w=500"
+    },
+    {
+      "id": 4,
+      "name": "Chicken Curry",
+      "price": 180,
+      "category": "Main Course",
+      "description": "Spicy chicken curry",
+      "image": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?q=80&w=500"
+    },
+    {
+      "id": 5,
+      "name": "Ice Cream",
+      "price": 90,
+      "category": "Dessert",
+      "description": "Cold and sweet ice cream",
+      "image": "https://images.unsplash.com/photo-1501443762994-82bd5dabb892?q=80&w=500"
+    }
+  ]
+}

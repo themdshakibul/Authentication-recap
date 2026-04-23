@@ -3,10 +3,23 @@
 import { useState } from "react";
 import { Link, Button } from "@heroui/react";
 import { usePathname } from "next/navigation";
+import { signOut, useSession } from "@/lib/auth-client";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const usePathName = usePathname();
+
+  const { data, isPending } = useSession();
+
+  if (isPending) {
+    return (
+      <div className="flex items-center justify-center h-200">
+        <h2>Loding ...</h2>
+      </div>
+    );
+  }
+  console.log("seddon data is navbar", data);
+  const user = data?.user;
 
   return (
     <section>
@@ -43,8 +56,11 @@ const Navbar = () => {
                   )}
                 </svg>
               </button>
-              <div>Navbar</div>
+              <div>
+                <h2 className="text-2xl font-semibold">Navbar</h2>
+              </div>
             </div>
+            {/* nva link */}
             <ul className="hidden items-center gap-4 md:flex">
               <li>
                 <Link href="/">
@@ -54,35 +70,37 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="">
-                  <Button variant={usePathName === "" ? "secondary" : ""}>
-                    About
+                <Link href="/deshbord">
+                  <Button
+                    variant={usePathName === "/deshbord" ? "secondary" : ""}
+                  >
+                    DeshBord
                   </Button>
                 </Link>
               </li>
               <li>
-                <Link href="">
-                  <Button variant={usePathName === "" ? "secondary" : ""}>
-                    Blog
+                <Link href="/foods">
+                  <Button variant={usePathName === "/foods" ? "secondary" : ""}>
+                    Foods
                   </Button>
                 </Link>
               </li>
             </ul>
+
+            {/* nav end */}
             <div className="flex items-center justify-center gap-5">
-              <Link href="/auth/signin">
-                <Button
-                  variant={usePathName === "/auth/signin" ? "secondary" : ""}
-                >
-                  SignIn
+              {user ? (
+                <>
+                  <p>Welcome {user.name}</p>
+                  <Button variant="danger" onClick={() => signOut()}>
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Button>
+                  <Link href="/auth/signin">Sign In</Link>
                 </Button>
-              </Link>
-              <Link href="/auth/signup">
-                <Button
-                  variant={usePathName === "/auth/signup" ? "secondary" : ""}
-                >
-                  SignUp
-                </Button>
-              </Link>
+              )}
             </div>
           </header>
           {isMenuOpen && (
@@ -96,9 +114,11 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="">
-                    <Button variant={usePathName === "" ? "secondary" : ""}>
-                      About
+                  <Link href="/foods">
+                    <Button
+                      variant={usePathName === "/foods" ? "secondary" : ""}
+                    >
+                      Foods
                     </Button>
                   </Link>
                 </li>
